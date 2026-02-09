@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import './SearchBar.css';
-import ScrollArea from '../ScrollArea';
 
 interface SearchSuggestion {
   name: string;
@@ -78,7 +77,7 @@ export default function SearchBar({
           disabled={disabled}
         />
         {showDropdown && (
-          <ScrollArea className="search-bar__dropdown" maxHeight={220}>
+          <div className="search-bar__dropdown">
             {hasSuggestions ? (
               <ul className="search-bar__list">
                 {suggestions.map((suggestion) => (
@@ -107,7 +106,7 @@ export default function SearchBar({
             ) : (
               <div className="search-bar__empty">{noResultsText}</div>
             )}
-          </ScrollArea>
+          </div>
         )}
       </div>
       <button 

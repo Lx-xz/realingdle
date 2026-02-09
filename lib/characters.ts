@@ -1,5 +1,5 @@
-import { supabase } from '@/lib/supabase'
-import { Character, CharacterRow } from '@/types'
+import { supabase } from '@/lib/supabase';
+import { Character, CharacterRow } from '@/types';
 
 const characterSelect = `
   id,
@@ -15,7 +15,7 @@ const characterSelect = `
   occupations:character_occupations(occupation:occupations(id, name)),
   associations:character_associations(association:associations(id, name)),
   places:character_places(place:places(id, name))
-`
+`;
 
 const normalizeCharacter = (row: CharacterRow): Character => ({
   id: row.id,
@@ -25,28 +25,27 @@ const normalizeCharacter = (row: CharacterRow): Character => ({
   age: row.age,
   created_at: row.created_at,
   updated_at: row.updated_at,
-  state: Array.isArray(row.state) ? row.state[0] ?? null : row.state,
+  state: Array.isArray(row.state) ? row.state[0] : row.state,
   classes: row.classes?.map((item) => item.class) ?? [],
   races: row.races?.map((item) => item.race) ?? [],
   occupations: row.occupations?.map((item) => item.occupation) ?? [],
   associations: row.associations?.map((item) => item.association) ?? [],
-  places: row.places?.map((item) => item.place) ?? []
-})
+  places: row.places?.map((item) => item.place) ?? [],
+});
 
 interface FetchCharactersOptions {
-  ascending?: boolean
+  ascending?: boolean;
 }
 
 export const fetchCharacters = async (options: FetchCharactersOptions = {}) => {
   const { data, error } = await supabase
     .from('characters')
     .select(characterSelect)
-    .order('created_at', { ascending: options.ascending ?? true })
+    .order('name', { ascending: options.ascending ?? true });
 
   if (error) {
-    throw error
+    throw error;
   }
 
-  const rows = data as unknown as CharacterRow[] | null;
-  return rows?.map(normalizeCharacter) ?? []
-}
+  return (data as unknown as CharacterRow[]).map(normalizeCharacter);
+};
