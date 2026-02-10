@@ -3,20 +3,16 @@
 
   &__container
     max-width: 1200px
-    margin: 0 auto
-    padding: 40px 0
 
   &__header
     display: flex
     justify-content: space-between
     align-items: center
-    margin-bottom: 32px
 
   &__title
     font-size: 28px
     font-weight: 700
     text-align: center
-    margin-bottom: 28px
     letter-spacing: 0.08em
     text-transform: uppercase
 
@@ -28,6 +24,7 @@
 
   &__tabs
     display: flex
+    justify-content: space-between
     gap: 8px
     margin-bottom: 24px
     background: #ffffff
@@ -37,7 +34,7 @@
     flex-wrap: wrap
 
   &__tab
-    padding: 12px 24px
+    padding: 12px
     border: none
     background: transparent
     border-radius: 12px
@@ -65,7 +62,7 @@
     background: #ffffff
     border: 1px solid var(--border)
     border-radius: 16px
-    padding: 32px
+    padding: 20px
 
   &__table-toolbar
     display: flex
@@ -134,7 +131,7 @@
     display: flex
     justify-content: space-between
     align-items: center
-    margin-bottom: 24px
+    margin-bottom: 12px
 
     h2
       font-size: 24px
@@ -142,29 +139,61 @@
 
   &__table-shell
     position: relative
-    border: 1px solid var(--border)
-    border-radius: 16px
-    background: #ffffff
-    padding: 1px
     overflow: visible
 
+  &__scroll-shell
+    position: relative
+    --table-scroll-gap: 16px 
+    --table-track-size: 5px
+
   &__table-clip
-    border-radius: 15px
-    overflow: hidden
-
-  &__table-scroll
-    padding: 6px 12px 12px 0
-
-  &__table
+    display: inline-block
     width: max-content
     min-width: 100%
-    border-collapse: collapse
+
+  &__table-scroll
+    padding: 0
+    position: relative
+    padding-top: var(--table-scroll-gap)
+    padding-right: var(--table-scroll-gap)
+    padding-bottom: var(--table-scroll-gap)
+    
+    .scroll-area__viewport
+      position: absolute
+      top: var(--table-scroll-gap)
+      left: 0
+      right: var(--table-scroll-gap)
+      bottom: var(--table-scroll-gap)
+      border-radius: 15px
+      overflow: auto
+      border: 1px solid var(--border)
+      background: #ffffff
+
+    .scroll-area__track
+      right: -10px
+      height: 100%
+      width: var(--table-track-size)
+
+    .scroll-area__track--x
+      top: 5px
+      width: 100%
+      height: var(--table-track-size)
+
+  &__table
+    width: 100%
+    border-collapse: separate
+    border-spacing: 0
     background-color: white
-    border-radius: 16px
-    overflow: hidden
+
+    thead
+      position: sticky
+      top: 0
+      z-index: 5
+      background-color: #f4f4f4
+      display: table-header-group
 
     th
-      background-color: #f4f4f4
+      background-color: inherit
       padding: 16px
       text-align: left
       font-weight: 600
@@ -172,6 +201,10 @@
       text-transform: uppercase
       letter-spacing: 0.5px
       color: #5a5a5a
+      position: sticky
+      top: 0
+      z-index: 6
+      box-shadow: 0 1px 0 var(--border)
 
     td
       padding: 16px

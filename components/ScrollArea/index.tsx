@@ -123,7 +123,7 @@ export default function ScrollArea({
     const handlePointerDown = (event: PointerEvent) => {
       event.preventDefault()
       dragging = true
-      root.classList.add("is-dragging")
+      root.classList.add("is-dragging-y")
       startY = event.clientY
       startScrollTop = content.scrollTop
 
@@ -145,7 +145,7 @@ export default function ScrollArea({
 
       const handlePointerUp = () => {
         dragging = false
-        root.classList.remove("is-dragging")
+        root.classList.remove("is-dragging-y")
         window.removeEventListener("pointermove", handlePointerMove)
         window.removeEventListener("pointerup", handlePointerUp)
       }
@@ -178,7 +178,7 @@ export default function ScrollArea({
       if (!trackX || !thumbX) return
       event.preventDefault()
       draggingX = true
-      root.classList.add("is-dragging")
+      root.classList.add("is-dragging-x")
       startX = event.clientX
       startScrollLeft = content.scrollLeft
 
@@ -200,7 +200,7 @@ export default function ScrollArea({
 
       const handlePointerUp = () => {
         draggingX = false
-        root.classList.remove("is-dragging")
+        root.classList.remove("is-dragging-x")
         window.removeEventListener("pointermove", handlePointerMove)
         window.removeEventListener("pointerup", handlePointerUp)
       }
@@ -252,17 +252,17 @@ export default function ScrollArea({
     }
   }, [showHorizontal])
 
-  const rootStyle = maxHeight ? { maxHeight } : undefined
-  const contentStyle = maxHeight ? { maxHeight } : undefined
+  const rootStyle = maxHeight ? { maxHeight, height: maxHeight } : undefined
+  const contentStyle = maxHeight ? { height: maxHeight } : undefined
 
   return (
     <div className={`scroll-area ${className}`} ref={rootRef} style={rootStyle}>
       <div
-        className="scroll-area__content"
+        className="scroll-area__viewport"
         ref={contentRef}
         style={contentStyle}
       >
-        {children}
+        <div className="scroll-area__content">{children}</div>
       </div>
       <div className="scroll-area__track" ref={trackRef}>
         <div className="scroll-area__thumb" ref={thumbRef} />

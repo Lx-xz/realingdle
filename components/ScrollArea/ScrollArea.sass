@@ -1,8 +1,10 @@
 .scroll-area
   position: relative
   overflow: visible
+  --scroll-track-size: 5px
 
-  &__content
+  &__viewport
+    position: relative
     overflow: auto
     scrollbar-width: none
 
@@ -10,30 +12,31 @@
       width: 0
       height: 0
 
+  &__content
+    position: relative
+
+    &::-webkit-scrollbar
+      width: 0
+      height: 0
+
   &__track
+    background-color: #eeeeee
     position: absolute
-    top: 6px
-    bottom: 6px
-    right: -10px
-    width: 7px
+    height: auto
+    width: var(--scroll-track-size)
     border-radius: 999px
 
     &:hover .scroll-area__thumb
       opacity: 1
 
     &--x
-      top: -10px
-      bottom: auto
-      left: 6px
-      right: 6px
-      height: 7px
+      height: var(--scroll-track-size)
       width: auto
 
   &__thumb
     width: 100%
     border-radius: 999px
     background: #000000
-    min-height: 24px
     cursor: pointer
     transition: background 0.2s ease, opacity 0.2s ease
     opacity: 0.2
@@ -43,27 +46,22 @@
 
     &--x
       height: 100%
-      margin: auto 0
       min-height: 0
 
-  &.is-dragging > .scroll-area__track .scroll-area__thumb,
-  &.is-dragging > .scroll-area__track--x .scroll-area__thumb
+  &.is-dragging-y > .scroll-area__track:not(.scroll-area__track--x) .scroll-area__thumb,
+  &.is-dragging-x > .scroll-area__track--x .scroll-area__thumb
     opacity: 1
-
-.scroll-area--offset
-  .scroll-area__track
-    right: -11px
-
-  .scroll-area__track--x
-    top: -11px
-    right: 10px
 
 .app-scroll
   height: 100vh
   width: 100%
+  
+  .scroll-area__viewport
+    height: 100%
+    width: 100%
 
   .scroll-area__content
-    height: 100%
+    min-height: 100%
 
   .scroll-area__track
     right: 6px
@@ -71,4 +69,5 @@
     bottom: 6px
 
   .scroll-area__track--x
-    top: 6px
+    top: auto
+    bottom: 6px

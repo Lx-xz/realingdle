@@ -1145,26 +1145,27 @@ export default function GameSettingsPage() {
                 )}
 
                 <div className="character-table__table-shell">
-                  <div className="character-table__table-clip">
+                  <div className="character-table__scroll-shell">
                     <ScrollArea
-                      className="character-table__table-scroll scroll-area--offset"
+                      className="character-table__table-scroll"
                       maxHeight={520}
                       showHorizontal
                     >
-                      <DataTable
-                        className="character-table__table"
-                        columns={[
-                          ...visibleCharacterColumnDefs.map((column) => ({
-                            key: column.key,
-                            label: column.label,
-                          })),
-                          {
-                            key: "actions",
-                            label: "Actions",
-                            className: "character-table__cell--actions",
-                          },
-                        ]}
-                      >
+                      <div className="character-table__table-clip">
+                        <DataTable
+                          className="character-table__table"
+                          columns={[
+                            ...visibleCharacterColumnDefs.map((column) => ({
+                              key: column.key,
+                              label: column.label,
+                            })),
+                            {
+                              key: "actions",
+                              label: "Actions",
+                              className: "character-table__cell--actions",
+                            },
+                          ]}
+                        >
                         {characters.length === 0 ? (
                           <tr>
                             <td
@@ -1250,7 +1251,8 @@ export default function GameSettingsPage() {
                             </tr>
                           ))
                         )}
-                      </DataTable>
+                        </DataTable>
+                      </div>
                     </ScrollArea>
                   </div>
                 </div>

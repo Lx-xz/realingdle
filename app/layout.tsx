@@ -38,7 +38,6 @@ export default function RootLayout({
               <HeaderMenu />
             </header>
             <main className="site__main">{children}</main>
-            <footer className="site__footer" />
           </div>
         </ScrollPage>
       </body>
